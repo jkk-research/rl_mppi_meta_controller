@@ -350,15 +350,31 @@
             <div class="content has-text-justified">
               <!-- TODO: Replace with your paper abstract -->
               <p>
-                Integrating learning-based components into automated vehicle software stacks raises a central validation problem: end-to-end learned controllers are difficult to verify, while classical planners and controllers rely on manually tuned parameters that may not suit every operating condition. 
-                We investigate an intermediate architecture in which reinforcement learning (RL) does not generate motion commands but acts as a meta-controller that adapts the parameters of a well-established local controller. 
-                The system combines a D* Lite global planner with incremental replanning, the Model Predictive Path Integral (MPPI) controller of the ROS 2 Nav2 stack, and a Proximal Policy Optimization (PPO) agent. 
-                The agent selects five MPPI parameters (velocity limits, sampling standard deviations, and an obstacle cost weight) from a bounded action space, based on a state built from goal distance, velocities, cross-track error, and sectorized LiDAR ranges. 
-                Because the RL output is confined to a bounded parameter space and the controller itself is unchanged, the safety-relevant behaviour of the controller is retained and the learned component remains auditable.                
-                The approach is validated in Gazebo using a reproducible scenario-generation pipeline. 
-                The pipeline produces matched occupancy grids and simulation worlds of increasing complexity, with static and dynamic variants; in the dynamic variant, an obstacle is injected onto the planned path during execution. 
-                Performance is measured with a unified metric set covering success rate, collision count and duration, time spent within a danger zone, path deviation (mean, max, RMS), detour ratio, execution time, and a command-smoothness measure. The hybrid system is compared against A*, D* Lite, and RRT* with default MPPI parameters, as well as against fixed-parameter MPPI baselines. 
-                Results are openly available at <a href="https://jkk-research.github.io/rl_mppi_meta_controller/">jkk-research.github.io/rl_mppi_meta_controller</a>.
+                Integrating learning-based components into automated vehicle software stacks creates a key
+                validation challenge: end-to-end learned controllers are hard to verify, while classical 
+                planners and controllers depend on manually tuned parameters that may not generalize across
+                operating conditions. The current paper studies an intermediate architecture in which 
+                reinforcement learning (RL) does not output motion commands but instead acts as a 
+                meta-controller that adjusts the parameters of an established local controller. The system 
+                combines a D* Lite global planner with incremental replanning, the Model Predictive Path 
+                Integral (MPPI) controller from the ROS 2 Nav2 stack, and a Proximal Policy Optimization (PPO) 
+                agent. The agent chooses five MPPI parameters (velocity limits, sampling standard deviations, 
+                and an obstacle cost weight) from a bounded action space, using a state composed of goal 
+                distance, velocities, cross-track error, and sectorized LiDAR ranges. Because the RL output is 
+                restricted to a bounded parameter space and the controller itself is unchanged, the 
+                controller’s structure and constraint handling are preserved, and the learned component remains
+                auditable. The approach is validated in Gazebo with a reproducible scenario-generation 
+                pipeline that creates matched occupancy grids and simulation worlds of increasing complexity, 
+                including static and dynamic variants; in the dynamic variant, an obstacle is injected onto 
+                the planned path during execution. Performance is assessed with a unified metric set covering 
+                success rate, collision count and duration, time spent in a danger zone, path deviation (mean,
+                max, RMS), detour ratio, execution time, and command smoothness. The hybrid system is 
+                compared with A*, D* Lite, and RRT* using default MPPI parameters. In static scenarios, the 
+                hybrid system performed comparably to the classical planners, and all except RRT* reached the 
+                goal without collision. In dynamic scenarios, the hybrid system completed every run without 
+                collision, while D* Lite with default parameters collided once, and the hybrid system reduced 
+                execution time by 6-9% relative to D* Lite. Code and results are openly available at
+                <a href="https://jkk-research.github.io/rl_mppi_meta_controller/">jkk-research.github.io/rl_mppi_meta_controller</a>.
             </div>
           </div>
         </div>
